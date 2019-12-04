@@ -9,6 +9,7 @@ services:
       - '8888:8888'
     volumes:
       - jupyter_store:/home/jupyter
+      - ./data:/data
 
 volumes:
   jupyter_store:

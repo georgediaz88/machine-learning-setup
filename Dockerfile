@@ -18,7 +18,11 @@ RUN pip3 install pip --upgrade \
   numpy \
   pandas \
   sklearn \
-  scipy
+  scipy \
+  beautifulsoup4 \
+  html5lib \
+  nltk \
+  python-crfsuite
 
 # Create a new system user
 RUN useradd -ms /bin/bash jupyter
