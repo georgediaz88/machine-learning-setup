@@ -7,6 +7,13 @@
 # at the time of writing this, it's 16.04.
 FROM ubuntu:latest
 
+# setup notebooks directory to store all our jupyter notebooks
+ARG JUPYTER_USER="jupyter"
+ARG HOME_PATH="/home/${JUPYTER_USER}"
+ARG NOTEBOOK_DIR="${HOME_PATH}/notebooks"
+ARG JUPYTER_CONFIG_DIR="${HOME_PATH}/.jupyter"
+ARG JUPYTER_CONFIG_FILE="${JUPYTER_CONFIG_DIR}/jupyter_notebook_config.py"
+
 # Run a system update to get it up to speed
 # Then install python3 and pip3
 RUN apt-get update && apt-get install -y python3 \
@@ -28,7 +35,11 @@ RUN pip3 install pip --upgrade \
 RUN useradd -ms /bin/bash jupyter
 
 # Change to this new user
-USER jupyter
+USER ${JUPYTER_USER}
+
+RUN mkdir -p ${NOTEBOOK_DIR} && \
+    mkdir -p ${JUPYTER_CONFIG_DIR} && \
+    echo "c.NotebookApp.notebook_dir = '${NOTEBOOK_DIR}'" >> ${JUPYTER_CONFIG_FILE}
 
 # Set the container working directory to the user home folder
 WORKDIR /home/jupyter

@@ -10,6 +10,7 @@ services:
     volumes:
       - jupyter_store:/home/jupyter
       - ./data:/data
+      - ./notebooks:/home/jupyter/notebooks
 
 volumes:
   jupyter_store:
